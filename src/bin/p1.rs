@@ -1,5 +1,5 @@
-use aoc2020::AnyResult;
 use aoc2020::line_input;
+use aoc2020::AnyResult;
 
 // input is small, brute force works for both
 fn main() -> AnyResult<()> {
