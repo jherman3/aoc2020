@@ -1,26 +1,33 @@
+#[macro_use]
+extern crate aoc2020_derive;
+#[macro_use]
+extern crate lazy_static;
+
 use aoc2020::line_input;
 use aoc2020::AnyResult;
 
-use regex::Regex;
+#[regex_parsed(r"(\d+)-(\d+) (.): (.+)")]
+struct Entry {
+    begin: usize,
+    end: usize,
+    c: char,
+    pass: String,
+}
 
 fn main() -> AnyResult<()> {
-    let lines: Vec<String> = line_input("inputs/p2.txt")?;
-    let reg = Regex::new(r"(\d+)-(\d+) (.): (.+)").unwrap();
+    let entries: Vec<Entry> = line_input("inputs/p2.txt");
     let mut valid_p1 = 0;
     let mut valid_p2 = 0;
-    for l in lines {
-        let caps = reg.captures(&l).unwrap();
-        let u1: usize = caps.get(1).unwrap().as_str().parse()?;
-        let u2: usize = caps.get(2).unwrap().as_str().parse()?;
-        let c: char = caps.get(3).unwrap().as_str().parse()?;
-        let pass: &str = caps.get(4).unwrap().as_str();
-        let cnt = pass.chars().filter(|&x| x == c).count();
-        if cnt >= u1 && cnt <= u2 {
+    for e in entries {
+        let cnt = e.pass.chars().filter(|&x| x == e.c).count();
+        if cnt >= e.begin && cnt <= e.end {
             valid_p1 += 1;
         }
-        let b = pass.as_bytes();
-        let cb = c as u8;
-        if (b[u1 - 1] == cb || b[u2 - 1] == cb) && !(b[u1 - 1] == cb && b[u2 - 1] == cb) {
+        let b = e.pass.as_bytes();
+        let cb = e.c as u8;
+        if (b[e.begin - 1] == cb || b[e.end - 1] == cb)
+            && !(b[e.begin - 1] == cb && b[e.end - 1] == cb)
+        {
             valid_p2 += 1;
         }
     }

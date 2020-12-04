@@ -3,7 +3,7 @@ use aoc2020::AnyResult;
 
 // input is small, brute force works for both
 fn main() -> AnyResult<()> {
-    let nums: Vec<u32> = line_input("inputs/p1.txt")?;
+    let nums: Vec<u32> = line_input("inputs/p1.txt");
     'outer: for i in 0..nums.len() {
         for j in 0..i {
             if nums[i] + nums[j] == 2020 {
