@@ -4,7 +4,7 @@ extern crate lazy_static;
 use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
-use std::{error::Error, str::FromStr};
+use std::error::Error;
 
 use regex::Regex;
 
