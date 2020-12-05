@@ -2,14 +2,20 @@
 extern crate lazy_static;
 
 use std::fs::File;
-use std::io::BufRead;
-use std::io::BufReader;
+use std::io::{BufRead, BufReader, Read};
 use std::error::Error;
 use std::str::FromStr;
 
 use regex::Regex;
 
 pub type AnyResult<T> = Result<T, Box<dyn Error>>;
+
+pub fn read_file(p: &str) -> String {
+    let mut f = File::open(p).expect("open file");
+    let mut s = String::new();
+    f.read_to_string(&mut s).expect("read file");
+    s
+}
 
 pub fn line_input<T: FromStr>(p: &str) -> Vec<T>
 where <T as FromStr>::Err: std::fmt::Debug {
