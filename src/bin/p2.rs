@@ -4,7 +4,6 @@ extern crate aoc2020_derive;
 extern crate lazy_static;
 
 use aoc2020::parse_lines;
-use aoc2020::AnyResult;
 
 #[regex_parsed(r"(\d+)-(\d+) (.): (.+)")]
 struct Entry {
@@ -14,7 +13,7 @@ struct Entry {
     pass: String,
 }
 
-fn main() -> AnyResult<()> {
+fn main() {
     let entries: Vec<Entry> = parse_lines("inputs/p2.txt");
     let mut valid_p1 = 0;
     let mut valid_p2 = 0;
@@ -24,13 +23,9 @@ fn main() -> AnyResult<()> {
             valid_p1 += 1;
         }
         let b = e.pass.as_bytes();
-        let cb = e.c as u8;
-        if (b[e.begin - 1] == cb || b[e.end - 1] == cb)
-            && !(b[e.begin - 1] == cb && b[e.end - 1] == cb)
-        {
+        if (b[e.begin - 1] == e.c as u8) ^ (b[e.end - 1] == e.c as u8) {
             valid_p2 += 1;
         }
     }
     dbg!(valid_p1, valid_p2);
-    Ok(())
 }
