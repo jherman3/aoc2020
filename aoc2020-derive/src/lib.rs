@@ -1,5 +1,3 @@
-extern crate regex;
-
 use proc_macro::TokenStream;
 
 use quote::{format_ident, quote};
