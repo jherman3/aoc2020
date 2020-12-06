@@ -1,7 +1,7 @@
-use aoc2020::{line_input, AnyResult};
+use aoc2020::{parse_lines, AnyResult};
 
 fn main() -> AnyResult<()> {
-    let ls: Vec<String> = line_input("inputs/p3.txt");
+    let ls: Vec<String> = parse_lines("inputs/p3.txt");
     let bitmap: Vec<Vec<bool>> = ls
         .iter()
         .map(|l| l.chars().map(|c| c == '#').collect())

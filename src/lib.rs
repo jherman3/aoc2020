@@ -18,7 +18,7 @@ pub fn each_line(p: &str) -> impl Iterator<Item=String> {
     r.lines().map(|x| x.expect("Error reading line"))
 }
 
-pub fn line_input<T: FromStr>(p: &str) -> Vec<T>
+pub fn parse_lines<T: FromStr>(p: &str) -> Vec<T>
 where <T as FromStr>::Err: std::fmt::Debug {
     let mut vals = Vec::new();
     for l in each_line(p) {

@@ -3,7 +3,7 @@ extern crate aoc2020_derive;
 #[macro_use]
 extern crate lazy_static;
 
-use aoc2020::line_input;
+use aoc2020::parse_lines;
 use aoc2020::AnyResult;
 
 #[regex_parsed(r"(\d+)-(\d+) (.): (.+)")]
@@ -15,7 +15,7 @@ struct Entry {
 }
 
 fn main() -> AnyResult<()> {
-    let entries: Vec<Entry> = line_input("inputs/p2.txt");
+    let entries: Vec<Entry> = parse_lines("inputs/p2.txt");
     let mut valid_p1 = 0;
     let mut valid_p2 = 0;
     for e in entries {
