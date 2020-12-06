@@ -1,21 +1,23 @@
 use proc_macro::TokenStream;
 
 use quote::{format_ident, quote};
+use regex::Regex;
 use syn::parse_macro_input;
 use syn::ItemStruct;
 
 #[proc_macro_attribute]
 pub fn regex_parsed(attr: TokenStream, item: TokenStream) -> TokenStream {
-    use regex::Regex;
     let input = parse_macro_input!(item as ItemStruct);
     let attr = parse_macro_input!(attr as syn::LitStr);
-    // Check regex is good
-    let _ = Regex::new(&attr.value()).expect("Invalid regex");
+    let reg = Regex::new(&attr.value()).expect("Invalid regex");
 
     let mut parsers = Vec::new();
     let mut fields = Vec::new();
     if input.fields.len() == 0 {
-        panic!("Struct is empty, must have fields");
+        panic!("Struct must have at least one field");
+    }
+    if input.fields.len() != reg.captures_len() - 1 {
+        panic!("Number of regex captures must equal number of struct fields")
     }
     let is_tuple = input.fields.iter().next().unwrap().ident.is_none();
     for (i, f) in input.fields.iter().enumerate() {
