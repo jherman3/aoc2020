@@ -9,3 +9,4 @@ utilities in the `aoc2020` crate in `src`. Proc macro magic is in `aoc2020-deriv
 - [ ] Optional fields in regex macro
 - [x] ~~Repeated fields in regex macro turning into a `Vec`~~. Not possible due to regex capturing only last match.
 - [ ] Enum variants macro parser?
+- [ ] Nicer errors using `syn::Error` on appropriate spans.
