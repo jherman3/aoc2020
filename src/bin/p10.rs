@@ -2,9 +2,9 @@ use aoc2020::parse_lines;
 
 fn main() {
     let mut nums: Vec<u32> = parse_lines("inputs/p10.txt");
-    nums.push(0);  // input device
+    nums.push(0); // input device
     nums.sort();
-    nums.push(nums[nums.len()-1] + 3); // Three higher than max
+    nums.push(nums[nums.len() - 1] + 3); // Three higher than max
     let diffs = nums.iter().zip(&nums[1..]).map(|(x, y)| y - x);
     let mut ones = 0;
     let mut threes = 0;
