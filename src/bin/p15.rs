@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-const INPUT: &[usize] = &[12,1,16,3,11,0];
+const INPUT: &[usize] = &[12, 1, 16, 3, 11, 0];
 // const INPUT: &[usize] = &[0, 3, 6];
 
 fn main() {
@@ -14,13 +14,9 @@ fn run(max: usize) -> usize {
 
     let mut prev = 0;
     for (turn, x) in INPUT.iter().enumerate() {
-        if let Some(tdat) = turns.get(x) {
+        if let Some(&(older, _)) = turns.get(x) {
             // we've seen it before so update
-            if let (newer_turn, Some(old_turn)) = tdat {
-                turns.insert(*x, (turn, Some(*newer_turn)));
-            } else {
-                turns.insert(*x, (turn, None));
-            }
+            turns.insert(*x, (turn, Some(older)));
         } else {
             turns.insert(*x, (turn, None));
         }
@@ -28,14 +24,13 @@ fn run(max: usize) -> usize {
     }
 
     for turn in INPUT.len()..max {
-        let tdat = turns.get(&prev).unwrap();
-        if let (last, Some(older)) = tdat {
+        if let &(last, Some(older)) = turns.get(&prev).unwrap() {
             prev = last - older;
         } else {
             prev = 0;
         }
-        if let Some((oldval, _)) = turns.get(&prev) {
-            turns.insert(prev, (turn, Some(*oldval)));
+        if let Some(&(oldval, _)) = turns.get(&prev) {
+            turns.insert(prev, (turn, Some(oldval)));
         } else {
             turns.insert(prev, (turn, None));
         }
