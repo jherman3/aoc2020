@@ -1,17 +1,44 @@
+use std::collections::HashMap;
+
 const INPUT: &[usize] = &[12,1,16,3,11,0];
 // const INPUT: &[usize] = &[0, 3, 6];
 
 fn main() {
-    let mut turns: Vec<_> = INPUT.into();
+    println!("p1: {}", run(2020));
+    println!("p1: {}", run(30_000_000));
+}
 
-    for turn in INPUT.len()..2020 {
-        let prev = turns[turn-1];
-        if let Some(x) = turns[0..turn-1].iter().rposition(|&c| c==prev ) {
-            turns.push(turn - 1 - x);
+fn run(max: usize) -> usize {
+    // num -> (most recent, next most recent)
+    let mut turns: HashMap<usize, (usize, Option<usize>)> = HashMap::new();
+
+    let mut prev = 0;
+    for (turn, x) in INPUT.iter().enumerate() {
+        if let Some(tdat) = turns.get(x) {
+            // we've seen it before so update
+            if let (newer_turn, Some(old_turn)) = tdat {
+                turns.insert(*x, (turn, Some(*newer_turn)));
+            } else {
+                turns.insert(*x, (turn, None));
+            }
         } else {
-            turns.push(0);
+            turns.insert(*x, (turn, None));
         }
-        println!("{}: {}", turn, turns[turns.len()-1]);
+        prev = *x;
     }
-    println!("p1: {}", turns.last().unwrap());
+
+    for turn in INPUT.len()..max {
+        let tdat = turns.get(&prev).unwrap();
+        if let (last, Some(older)) = tdat {
+            prev = last - older;
+        } else {
+            prev = 0;
+        }
+        if let Some((oldval, _)) = turns.get(&prev) {
+            turns.insert(prev, (turn, Some(*oldval)));
+        } else {
+            turns.insert(prev, (turn, None));
+        }
+    }
+    prev
 }
