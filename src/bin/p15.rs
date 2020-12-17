@@ -9,31 +9,24 @@ fn main() {
 }
 
 fn run(max: usize) -> usize {
-    // num -> (most recent, next most recent)
-    let mut turns: HashMap<usize, (usize, Option<usize>)> = HashMap::new();
+    // Num -> last spoken
+    let mut turns: HashMap<usize, usize> = HashMap::new();
 
     let mut prev = 0;
     for (turn, x) in INPUT.iter().enumerate() {
-        if let Some(&(older, _)) = turns.get(x) {
-            // we've seen it before so update
-            turns.insert(*x, (turn, Some(older)));
-        } else {
-            turns.insert(*x, (turn, None));
-        }
+        turns.insert(*x, turn);
         prev = *x;
     }
 
     for turn in INPUT.len()..max {
-        if let &(last, Some(older)) = turns.get(&prev).unwrap() {
-            prev = last - older;
+        let cur;
+        if let Some(t) = turns.get(&prev) {
+            cur = turn - 1 - t;
         } else {
-            prev = 0;
-        }
-        if let Some(&(oldval, _)) = turns.get(&prev) {
-            turns.insert(prev, (turn, Some(oldval)));
-        } else {
-            turns.insert(prev, (turn, None));
-        }
+            cur = 0;
+        };
+        turns.insert(prev, turn - 1);
+        prev = cur;
     }
     prev
 }
