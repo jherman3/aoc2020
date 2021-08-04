@@ -1,5 +1,5 @@
-use std::collections::{HashSet, HashMap};
 use aoc2020::each_line;
+use std::collections::{HashMap, HashSet};
 
 fn main() {
     let mut active = HashSet::new();
@@ -42,9 +42,9 @@ fn main() {
 
 fn neighbors(x: i32, y: i32, z: i32) -> Vec<(i32, i32, i32)> {
     let mut v = Vec::with_capacity(27);
-    for i in (x-1)..=x+1 {
-        for j in (y-1)..=y+1 {
-            for k in (z-1)..=z+1 {
+    for i in (x - 1)..=x + 1 {
+        for j in (y - 1)..=y + 1 {
+            for k in (z - 1)..=z + 1 {
                 v.push((i, j, k));
             }
         }

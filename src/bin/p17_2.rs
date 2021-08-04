@@ -1,5 +1,5 @@
-use std::collections::{HashSet, HashMap};
 use aoc2020::each_line;
+use std::collections::{HashMap, HashSet};
 
 fn main() {
     let mut active = HashSet::new();
@@ -42,10 +42,10 @@ fn main() {
 
 fn neighbors(x: i32, y: i32, z: i32, w: i32) -> Vec<(i32, i32, i32, i32)> {
     let mut v = Vec::with_capacity(81);
-    for i in (x-1)..=x+1 {
-        for j in (y-1)..=y+1 {
-            for k in (z-1)..=z+1 {
-                for l in (w-1)..=w+1 {
+    for i in (x - 1)..=x + 1 {
+        for j in (y - 1)..=y + 1 {
+            for k in (z - 1)..=z + 1 {
+                for l in (w - 1)..=w + 1 {
                     v.push((i, j, k, l));
                 }
             }
@@ -54,7 +54,13 @@ fn neighbors(x: i32, y: i32, z: i32, w: i32) -> Vec<(i32, i32, i32, i32)> {
     v
 }
 
-fn count_neighbors(x: i32, y: i32, z: i32, w: i32, active: &HashSet<(i32, i32, i32, i32)>) -> usize {
+fn count_neighbors(
+    x: i32,
+    y: i32,
+    z: i32,
+    w: i32,
+    active: &HashSet<(i32, i32, i32, i32)>,
+) -> usize {
     let mut c = 0;
     for xyz in neighbors(x, y, z, w) {
         if !(xyz == (x, y, z, w)) && active.contains(&xyz) {

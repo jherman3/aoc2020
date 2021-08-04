@@ -61,7 +61,9 @@ fn main() {
         transposed.push(r);
     }
 
-    // loop {
+    let mut updated = true;
+    while updated {
+        updated = false;
         for f in &fields {
             for (i, v) in transposed.iter().enumerate() {
                 // eliminate possibility
@@ -70,8 +72,37 @@ fn main() {
                 }
             }
         }
-        dbg!(poss);
-    // }
+        let mut confirmed = Vec::new();
+        for indexes in poss.values() {
+            if indexes.len() == 1 {
+                confirmed.push(*indexes.iter().next().unwrap());
+            }
+        }
+        for c in confirmed {
+            for x in poss.values_mut() {
+                if x.len() > 1 {
+                    updated = true;
+                    x.remove(&c);
+                }
+            }
+        }
+    }
+    let mut total: u64 = 1;
+    let my_ticket: Vec<_> = my_ticket
+        .lines()
+        .skip(1)
+        .next()
+        .unwrap()
+        .split(",")
+        .map(|x| x.parse::<u32>().unwrap())
+        .collect();
+    for (field, indexes) in poss {
+        if field.starts_with("departure") {
+            let idx = *indexes.iter().next().unwrap();
+            total *= my_ticket[idx] as u64;
+        }
+    }
+    dbg!(total);
 }
 
 fn check_field(i: u32, f: &Field) -> bool {
