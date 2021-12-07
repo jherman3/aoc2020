@@ -12,3 +12,4 @@ lazy_static = "1.4.0"
 aoc2020-derive = {path = "./aoc2020-derive"}
 ring-algorithm = "0.2.2"
 nom = "6.0.1"
+anyhow = "1.0.51"

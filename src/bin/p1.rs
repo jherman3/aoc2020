@@ -1,27 +1,23 @@
 use aoc2020::parse_lines;
 use aoc2020::AnyResult;
 
-// input is small, brute force works for both
-fn main() -> AnyResult<()> {
-    let nums: Vec<u32> = parse_lines("inputs/p1.txt");
-    'outer: for i in 0..nums.len() {
-        for j in 0..i {
-            if nums[i] + nums[j] == 2020 {
-                println!("{}", nums[i] * nums[j]);
-                break 'outer;
-            }
+fn count_increasing<T: PartialOrd>(iter: impl Iterator<Item = T>) -> usize {
+    let mut prev = None;
+    let mut total = 0;
+    for x in iter {
+        if matches!(prev, Some(p) if p < x) {
+            total += 1;
         }
+        prev = Some(x);
     }
+    total
+}
 
-    'outer2: for i in 0..nums.len() {
-        for j in 0..i {
-            for k in 0..j {
-                if nums[i] + nums[j] + nums[k] == 2020 {
-                    println!("{}", nums[i] * nums[j] * nums[k]);
-                    break 'outer2;
-                }
-            }
-        }
-    }
-    return Ok(());
+fn main() -> AnyResult<()> {
+    let nums: Vec<u32> = parse_lines("inputs/2021/p1.txt");
+    let p1 = count_increasing(nums.iter());
+    dbg!(p1);
+    let p2 = count_increasing(nums.windows(3).map(|x| x.iter().sum::<u32>()));
+    dbg!(p2);
+    Ok(())
 }

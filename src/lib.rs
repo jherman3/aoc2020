@@ -15,7 +15,8 @@ pub fn read_file(p: &str) -> String {
 pub fn each_line(p: &str) -> impl Iterator<Item = String> {
     let f = File::open(p).expect("open file");
     let r = BufReader::new(f);
-    r.lines().map(|x| x.expect("Error reading line"))
+    r.lines()
+        .map(|x| x.expect("Error reading line").trim().to_owned())
 }
 
 pub fn parse_lines<T: FromStr>(p: &str) -> Vec<T>
