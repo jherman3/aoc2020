@@ -7,9 +7,8 @@ fn main() {
     let median = input[input.len() / 2];
     let cost = |t: i32| input.iter().map(|x| (x - t).abs()).sum::<i32>();
     let p1 = cost(median);
-    // tricky so just bruteforce - it's fast
-    let min = input[0];
-    let max = input[input.len() - 1];
+
+    let mean = (input.iter().sum::<i32>() as f32 / input.len() as f32).round() as i32;
     let cost = |t: i32| {
         input
             .iter()
@@ -19,6 +18,7 @@ fn main() {
             })
             .sum::<i32>()
     };
-    let p2 = (min..=max).map(cost).min().unwrap();
+    let p2 = *[cost(mean), cost(mean+1), cost(mean-1)].iter().min().unwrap();
     dbg!(p1, p2);
 }
+
