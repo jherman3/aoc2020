@@ -2,7 +2,7 @@ use cached::proc_macro::cached;
 
 #[cached]
 fn count_fish(timer: i32, days: i32) -> usize {
-    let mut timer = timer;  // hack - cached macro doesnt support mut
+    let mut timer = timer; // hack - cached macro doesnt support mut
     let mut days = days;
     let mut num_fish = 1;
     while days - timer > 0 {
@@ -15,7 +15,10 @@ fn count_fish(timer: i32, days: i32) -> usize {
 }
 
 fn main() {
-    let input: Vec<i32> = aoc2020::read_file("inputs/2021/p6.txt").split(",").map(|x| x.parse().unwrap()).collect();
+    let input: Vec<i32> = aoc2020::read_file("inputs/2021/p6.txt")
+        .split(",")
+        .map(|x| x.parse().unwrap())
+        .collect();
     let mut total_fish_p1 = 0;
     let mut total_fish_p2 = 0;
     for x in &input {
