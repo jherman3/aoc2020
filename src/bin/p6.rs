@@ -16,7 +16,7 @@ fn count_fish(timer: i32, days: i32) -> usize {
 
 fn main() {
     let input: Vec<i32> = aoc2020::read_file("inputs/2021/p6.txt")
-        .split(",")
+        .split(',')
         .map(|x| x.parse().unwrap())
         .collect();
     let mut total_fish_p1 = 0;

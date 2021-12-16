@@ -1,9 +1,9 @@
 fn main() {
     let mut input: Vec<i32> = aoc2020::read_file("inputs/2021/p7.txt")
-        .split(",")
+        .split(',')
         .map(|x| x.parse().unwrap())
         .collect();
-    input.sort();
+    input.sort_unstable();
     let median = input[input.len() / 2];
     let cost = |t: i32| input.iter().map(|x| (x - t).abs()).sum::<i32>();
     let p1 = cost(median);
@@ -18,7 +18,9 @@ fn main() {
             })
             .sum::<i32>()
     };
-    let p2 = *[cost(mean), cost(mean+1), cost(mean-1)].iter().min().unwrap();
+    let p2 = *[cost(mean), cost(mean + 1), cost(mean - 1)]
+        .iter()
+        .min()
+        .unwrap();
     dbg!(p1, p2);
 }
-
