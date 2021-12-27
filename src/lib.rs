@@ -30,3 +30,42 @@ where
     }
     vals
 }
+
+
+pub struct Neighbors {
+    i: i32,
+    j: i32,
+    m: i32,
+    n: i32,
+    idx: usize,
+}
+
+impl Neighbors {
+    pub fn new(i: usize, j: usize, m: usize, n: usize) -> Self {
+        Self {
+            i: i as i32, j: j as i32, m: m as i32, n: n as i32, idx: 0
+        }
+    }
+}
+
+impl Iterator for Neighbors {
+    type Item = (usize, usize);
+    fn next(&mut self) -> Option<Self::Item> {
+        if self.idx > 8 {
+            return None;
+        }
+        let dx = (self.idx / 3) as i32 - 1;
+        let dy = (self.idx % 3) as i32 - 1;
+        self.idx += 1;
+        if dx == 0 && dy == 0 {
+            return self.next();
+        }
+        let x = self.i + dx;
+        let y = self.j + dy;
+        if x >= 0 && y >= 0 && x < self.m && y < self.n {
+            return Some((x as usize, y as usize))
+        } else {
+            return self.next();
+        }
+    }
+}
