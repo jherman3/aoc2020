@@ -16,28 +16,28 @@ fn main() -> AnyResult<()> {
                         corrupt = true;
                         break;
                     }
-                },
+                }
                 ']' => {
                     if stack.pop() != Some('[') {
                         p1_total += 57;
                         corrupt = true;
                         break;
                     }
-                },
+                }
                 '}' => {
                     if stack.pop() != Some('{') {
                         p1_total += 1197;
                         corrupt = true;
                         break;
                     }
-                },
+                }
                 '>' => {
                     if stack.pop() != Some('<') {
                         p1_total += 25137;
                         corrupt = true;
                         break;
                     }
-                },
+                }
                 _ => unreachable!(),
             }
         }
