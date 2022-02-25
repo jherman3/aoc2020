@@ -1,7 +1,7 @@
-use aoc2020::{each_line, AnyResult};
+use aoc2020::each_line;
 use std::collections::{HashMap, HashSet};
 
-fn main() -> AnyResult<()> {
+fn main() {
     let mut adjacency = HashMap::new();
     for pair in each_line("inputs/2021/p12.txt") {
         let (p1, p2) = pair.split_once("-").expect("split");
@@ -23,7 +23,6 @@ fn main() -> AnyResult<()> {
     dbg!(p1);
     let p2 = num_paths(&adjacency, "start", "end", &mut visited, true);
     dbg!(p2);
-    Ok(())
 }
 
 fn num_paths<'a>(
@@ -42,7 +41,7 @@ fn num_paths<'a>(
         }
         let neighbor: &str = neighbor.as_ref();
         if neighbor.chars().all(char::is_lowercase) {
-            #[allow(clippy::map_entry)]  // clunky because the later remove
+            #[allow(clippy::map_entry)] // clunky because the later remove
             if !visited.contains_key(&neighbor) {
                 visited.insert(neighbor, 1);
                 count += num_paths(adjacency, neighbor, end, visited, part2);

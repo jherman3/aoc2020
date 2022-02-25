@@ -1,5 +1,4 @@
 use aoc2020::parse_lines;
-use aoc2020::AnyResult;
 
 fn count_increasing<T: PartialOrd>(iter: impl Iterator<Item = T>) -> usize {
     let mut prev = None;
@@ -13,11 +12,10 @@ fn count_increasing<T: PartialOrd>(iter: impl Iterator<Item = T>) -> usize {
     total
 }
 
-fn main() -> AnyResult<()> {
+fn main() {
     let nums: Vec<u32> = parse_lines("inputs/2021/p1.txt");
     let p1 = count_increasing(nums.iter());
     dbg!(p1);
     let p2 = count_increasing(nums.windows(3).map(|x| x.iter().sum::<u32>()));
     dbg!(p2);
-    Ok(())
 }

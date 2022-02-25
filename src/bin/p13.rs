@@ -1,4 +1,4 @@
-use aoc2020::{read_file, AnyResult};
+use aoc2020::read_file;
 use std::collections::HashSet;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -20,7 +20,7 @@ fn print_grid(grid: &HashSet<Point>, xmax: u32, ymax: u32) {
     }
 }
 
-fn main() -> AnyResult<()> {
+fn main() {
     let input = read_file("inputs/2021/p13.txt");
     let (points, folds) = input.split_once("\n\n").unwrap();
     let mut grid = points
@@ -52,7 +52,6 @@ fn main() -> AnyResult<()> {
         }
     }
     print_grid(&grid, 50, 7);
-    Ok(())
 }
 
 fn fold_along_x(p: Point, x: u32) -> Point {

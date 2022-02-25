@@ -1,7 +1,7 @@
 #![allow(clippy::needless_range_loop)]
-use aoc2020::{each_line, AnyResult, Neighbors};
+use aoc2020::{each_line, Neighbors};
 
-fn main() -> AnyResult<()> {
+fn main() {
     let mut board: Vec<Vec<u8>> = each_line("inputs/2021/p11.txt")
         .map(|x| x.chars().map(|y| y.to_digit(10).unwrap() as u8).collect())
         .collect();
@@ -50,5 +50,4 @@ fn main() -> AnyResult<()> {
             dbg!(flashes);
         }
     }
-    Ok(())
 }

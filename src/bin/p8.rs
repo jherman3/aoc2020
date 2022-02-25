@@ -1,8 +1,8 @@
 use std::collections::{HashMap, HashSet};
 
-use aoc2020::{each_line, AnyResult};
+use aoc2020::each_line;
 
-fn main() -> AnyResult<()> {
+fn main() {
     let mut p1_count = 0;
     for l in each_line("inputs/2021/p8.txt") {
         let (_start, end) = l.split_once('|').expect("once");
@@ -77,7 +77,6 @@ fn main() -> AnyResult<()> {
         p2_sum += cur.parse::<usize>().unwrap();
     }
     dbg!(p2_sum);
-    Ok(())
 }
 
 fn find_remove<T, F: Fn(&T) -> bool>(v: &mut Vec<T>, f: F) -> Option<T> {

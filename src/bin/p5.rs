@@ -1,5 +1,4 @@
 use aoc2020::parse_lines;
-use aoc2020::AnyResult;
 use aoc2020_derive::regex_parsed;
 use lazy_static::lazy_static;
 use std::cmp::{max, min};
@@ -13,7 +12,7 @@ struct Line {
     y2: i32,
 }
 
-fn main() -> AnyResult<()> {
+fn main() {
     let input: Vec<Line> = parse_lines("inputs/2021/p5.txt");
     let max_x = input.iter().map(|x| max(x.x1, x.x2)).max().unwrap() as usize;
     let max_y = input.iter().map(|x| max(x.y1, x.y2)).max().unwrap() as usize;
@@ -65,6 +64,4 @@ fn main() -> AnyResult<()> {
     //     }
     //     println!();
     // }
-
-    Ok(())
 }

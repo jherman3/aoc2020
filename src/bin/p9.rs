@@ -1,4 +1,4 @@
-use aoc2020::{each_line, AnyResult};
+use aoc2020::each_line;
 use std::collections::{BinaryHeap, HashMap};
 
 fn neighbors(i: usize, j: usize, n: usize, m: usize) -> Vec<(usize, usize)> {
@@ -16,7 +16,7 @@ fn neighbors(i: usize, j: usize, n: usize, m: usize) -> Vec<(usize, usize)> {
     out
 }
 
-fn main() -> AnyResult<()> {
+fn main() {
     let map: Vec<Vec<u8>> = each_line("inputs/2021/p9.txt")
         .map(|x| x.chars().map(|x| x.to_digit(10).unwrap() as u8).collect())
         .collect();
@@ -81,5 +81,4 @@ fn main() -> AnyResult<()> {
         p2_prod *= counts_heap.pop().unwrap().0;
     }
     dbg!(p2_prod);
-    Ok(())
 }

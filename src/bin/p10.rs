@@ -1,7 +1,6 @@
 use aoc2020::each_line;
-use aoc2020::AnyResult;
 
-fn main() -> AnyResult<()> {
+fn main() {
     let mut p1_total = 0;
     let mut p2_totals = Vec::new();
     for l in each_line("inputs/2021/p10.txt") {
@@ -59,5 +58,4 @@ fn main() -> AnyResult<()> {
     dbg!(p1_total);
     p2_totals.sort_unstable();
     dbg!(p2_totals[p2_totals.len() / 2]);
-    Ok(())
 }

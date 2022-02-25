@@ -1,10 +1,9 @@
 #![feature(iter_intersperse)]
 
 use aoc2020::each_line;
-use aoc2020::AnyResult;
 use std::collections::HashSet;
 
-fn main() -> AnyResult<()> {
+fn main() {
     let mut lines = each_line("inputs/2021/p4.txt");
     let nums: Vec<u8> = lines
         .next()
@@ -42,7 +41,6 @@ fn main() -> AnyResult<()> {
         }
     }
     println!("p1 {} p2 {}", first.unwrap(), last.unwrap());
-    Ok(())
 }
 
 fn score_board(board: &[u8], called: &HashSet<u8>, num: u8) -> u32 {
