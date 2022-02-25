@@ -57,7 +57,7 @@ fn main() -> AnyResult<()> {
         }
     }
     dbg!(p1_total);
-    p2_totals.sort();
+    p2_totals.sort_unstable();
     dbg!(p2_totals[p2_totals.len() / 2]);
     Ok(())
 }

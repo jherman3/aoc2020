@@ -1,3 +1,4 @@
+#![allow(clippy::needless_range_loop)]
 use aoc2020::{each_line, AnyResult, Neighbors};
 
 fn main() -> AnyResult<()> {

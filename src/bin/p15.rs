@@ -22,7 +22,7 @@ fn main() {
     dbg!(p2);
 }
 
-fn shortest_path_len(grid: &Vec<Vec<i32>>) -> i32 {
+fn shortest_path_len(grid: &[Vec<i32>]) -> i32 {
     let m = grid.len();
     let n = grid[0].len();
     let mut to_visit = BinaryHeap::new(); // (cost, x, y)

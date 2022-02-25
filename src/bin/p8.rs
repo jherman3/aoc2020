@@ -59,8 +59,8 @@ fn main() -> AnyResult<()> {
         });
         digits[5] = individual.pop();
         let mut digit_mapping: HashMap<String, usize> = HashMap::new();
-        for x in 0..10 {
-            let mut key: Vec<char> = digits[x].take().expect("unsolved").into_iter().collect();
+        for (x, key) in digits.iter_mut().enumerate() {
+            let mut key: Vec<char> = key.take().expect("unsolved").into_iter().collect();
             key.sort_unstable();
             digit_mapping.insert(key.into_iter().collect(), x);
         }

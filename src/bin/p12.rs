@@ -8,11 +8,11 @@ fn main() -> AnyResult<()> {
         // todo map to ints instead of allocating everywhere?
         adjacency
             .entry(p1.to_owned())
-            .or_insert(HashSet::new())
+            .or_insert_with(HashSet::new)
             .insert(p2.to_owned());
         adjacency
             .entry(p2.to_owned())
-            .or_insert(HashSet::new())
+            .or_insert_with(HashSet::new)
             .insert(p1.to_owned());
     }
     //dbg!(adjacency);
@@ -42,6 +42,7 @@ fn num_paths<'a>(
         }
         let neighbor: &str = neighbor.as_ref();
         if neighbor.chars().all(char::is_lowercase) {
+            #[allow(clippy::map_entry)]  // clunky because the later remove
             if !visited.contains_key(&neighbor) {
                 visited.insert(neighbor, 1);
                 count += num_paths(adjacency, neighbor, end, visited, part2);
