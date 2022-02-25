@@ -1,4 +1,3 @@
-use anyhow::Result;
 use aoc2020::each_line;
 
 #[derive(Copy, Clone, Debug)]
@@ -62,10 +61,10 @@ fn part2(bits: &[String], criteria: Criteria) -> String {
     x
 }
 
-fn main() -> Result<()> {
+fn main() {
     let bits: Vec<_> = each_line("inputs/2021/p3.txt").collect();
     let bitstr = most_common_p1(&bits, Criteria::MostCommon);
-    let num = u32::from_str_radix(&bitstr, 2)?;
+    let num = u32::from_str_radix(&bitstr, 2).expect("bad num");
     let mut mask = 0;
     for i in 0..bits[0].len() {
         mask |= 1 << i;
@@ -75,7 +74,7 @@ fn main() -> Result<()> {
 
     let oxy = part2(&bits, Criteria::MostCommon);
     let co2 = part2(&bits, Criteria::LeastCommon);
-    let p2 = u32::from_str_radix(&oxy, 2)? * u32::from_str_radix(&co2, 2)?;
+    let p2 = u32::from_str_radix(&oxy, 2).expect("bad num")
+        * u32::from_str_radix(&co2, 2).expect("bad num");
     dbg!(p2);
-    Ok(())
 }
