@@ -1,0 +1,363 @@
+# P24 solve by paper
+want z = 0
+
+Source is repetitive
+Free parameters:
+A   B   C
+1   13  10
+1   11  16
+1   11  0
+1   10  13
+26  -14 7
+26  -4  11
+1   11  11
+26  -3  10
+1   12  16
+26  -12 8
+1   13  15
+26  -12 2
+26  -15 5
+26  -12 10
+
+For each digit:
+inp w     # read digit
+mul x 0   # constant across invocation
+add x z   # constant across invocation
+mod x 26  # constant across invocation
+div z A   # A is 1 or 26
+add x B   # free
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y C   # free parameter
+mul y x
+add z y
+
+
+read into w, carry over x y z
+z /= A                  # chop letter off of z or stay, depending on A
+if w != z % 26 + B:     # if input isn't current last letter plus B
+    z = z*26 + (w + C)  # then add w+c to acc
+else
+    z = z   # good - preserve 0
+
+so - we need largest value that can still chop off the z values
+it's like a stack, 7 and 7 for the 26/1 div operations
+Must clear when b <10 since that's only time we can trigger the if statement
+
+
+## Part 1
+A   B   C     input | result z
+1   13  10    9 | 19
+1   11  16    8 | 19,24
+1   11  0     9 | 19,24,9
+1   10  13    9 | 19,24,9,22
+26  -14 7     8 | 19,24,9  # clear the 22
+26  -4  11    5 | 19,24  # clear the 9
+1   11  11    1 | 19,24,12  # have to go low to allow clear next
+26  -3  10    9 | 19,24
+1   12  16    5 | 19,24,21  # allow clear next
+26  -12 8     9 | 19,24
+1   13  15    6 | 19,24,21
+26  -12 2     9 | 19,24
+26  -15 5     9 | 19
+26  -12 10    7 | 0
+
+Answer:
+98998519596997
+
+
+## Part 2
+A   B   C     input | result z
+1   13  10    3 | 13
+1   11  16    1 | 13,17
+1   11  0     5 | 13,17,5
+1   10  13    2 | 13,17,5,15
+26  -14 7     1 | 13,17,5
+26  -4  11    1 | 13,17
+1   11  11    1 | 13,17,12
+26  -3  10    9 | 13,17
+1   12  16    1 | 13,17,17
+26  -12 8     5 | 13,17
+1   13  15    1 | 13,17,16
+26  -12 2     4 | 13,17
+26  -15 5     2 | 13
+26  -12 10    1 | 0
+
+Answer:
+31521119151421
+
+
+# Puzzle input
+
+inp w     # constant
+mul x 0   # constant across invocation
+add x z   # constant across invocation
+mod x 26  # constant across invocation
+div z 1   # free parameter
+add x 13  # free parameter here
+eql x w   # const
+eql x 0   # const
+mul y 0   # const
+add y 25  # const
+mul y x   # const
+add y 1   # const
+mul z y   # const
+mul y 0   # const
+add y w   # const
+add y 10  # free parameter
+mul y x   # const
+add z y   # const
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 11
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 16
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 11
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 0
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 10
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 13
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -14
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 7
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -4
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 11
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 11
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 11
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -3
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 10
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 16
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 8
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 13
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 15
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 2
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -15
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 5
+mul y x
+add z y
+
+inp w
+mul x 0
+add x z
+mod x 26
+div z 26
+add x -12
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 10
+mul y x
+add z y

@@ -107,7 +107,9 @@ fn main() {
     }
     dbg!(magnitude(&nums));
     let mut max_magnitude = 0;
-    let all_nums: Vec<_> = each_line("inputs/2021/p18.txt").map(|x| parse_line(&x)).collect();
+    let all_nums: Vec<_> = each_line("inputs/2021/p18.txt")
+        .map(|x| parse_line(&x))
+        .collect();
     for i in 0..all_nums.len() {
         for j in 0..all_nums.len() {
             if i == j {
